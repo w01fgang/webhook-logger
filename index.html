@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Webhook logger</title>
+  </head>
+  <body>
+    <script>
+      const fetchLogs = async () => {
+        const response = await fetch('/api/webhook?logs=true');
+        const logs = await response.json();
+        return logs;
+      };
+      fetchLogs().then(logs => logs.map(el => {
+        const pre = document.createElement('pre');
+        const code = document.createElement('code');
+        code.innerText = JSON.stringify((JSON.parse(el)), null, 2);
+        pre.appendChild(code);
+        document.body.appendChild(pre);
+      }));
+    </script>
+  </body>
+</html>
